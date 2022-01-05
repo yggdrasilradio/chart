@@ -1,7 +1,7 @@
 CHART: COCO3 color chart
 ==========
 
-![](images/chart.png)
+![](images/chart.jpg)
 
 Dale Lear and I wrote a color chart program for the Coco3 for Rainbow back in January, 1987.  However, that version had
 glitches down the left side of the screen from switching the palette registers too sloppily.
