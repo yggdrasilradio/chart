@@ -41,7 +41,7 @@
 			hprint (x * 10 + 5, y + 4), x * 16 + y
 
 			' Draw a line between each cell
-			hline (x * 80 + 10, y * 8 + 39)-(x * 80 + 40, y * 8 + 39), pset
+			hline (x * 80 + 11, y * 8 + 39)-(x * 80 + 39, y * 8 + 39), pset
 
 		next y
 

@@ -6,6 +6,8 @@
        stb     $ff03
        ldb     #$35	* enable HSYNC IRQ
        stb     $ff01
+       ldb     #$fb	* init keyboard
+       stb     $ff02
 
 loop   lda     #16	* going to change palettes 16 times
        ldx     #$0010	* initial palette values for columns 1 and 2
@@ -40,11 +42,8 @@ hwait  tst     $ff00	* dismiss HSYNC
 
        * Is the BREAK key down?
        pshs b
-       ldb #$fb
-       stb $ff02
        ldb $ff00
-       andb #$7f
-       cmpb #$3f
+       bitb #$40
        beq reset	* BREAK key down
        puls b
        bra loop		* no BREAK key down, keep going
