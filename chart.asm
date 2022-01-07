@@ -6,7 +6,6 @@
        stb     $ff03
        ldb     #$35	* enable HSYNC IRQ
        stb     $ff01
-       clr     $ff02    * init keyboard
 
 loop   lda     #16	* going to change palettes 16 times
        ldx     #$0010	* initial palette values for columns 1 and 2
@@ -25,7 +24,7 @@ hwait  tst     $ff00	* dismiss HSYNC
        decb		* count HSYNCs
        bne     hwait	* keep going
 
-       * wait for HSYNC before changing palettes
+       * wait for HSYNC once more before changing palettes
        tst     $ff00	* dismiss HSYNC
        sync
 
@@ -39,17 +38,19 @@ hwait  tst     $ff00	* dismiss HSYNC
        deca		* count down from 16
        bne     hwait	* next series of HSYNCs
 
-       * Is a key down?
-       pshs d
-       lda $ff00
-       coma
-       lsla
-       bne keydn	* key is down
-       puls d
-       bra loop		* no key down, keep going
+       * Is the BREAK key down?
+       pshs b
+       ldb #$fb
+       stb $ff02
+       ldb $ff00
+       andb #$7f
+       cmpb #$3f
+       beq reset	* BREAK key down
+       puls b
+       bra loop		* no BREAK key down, keep going
 
        * Hard reset to RSDOS
-keydn  clr     $71	* force hard reset
+reset  clr     $71	* force hard reset
        jmp     [$fffe]	* jump thru reset vector
 
 

@@ -48,7 +48,7 @@
 	next x
 
 	' Legend at the bottom
-	hprint (9, 22), "Press any key to exit"
+	hprint (7, 22), "Press BREAK key to exit"
 
 	' Poke in some ML code and execute it
 	read a, b
